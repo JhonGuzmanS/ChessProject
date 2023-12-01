@@ -8,7 +8,7 @@ from engine import FishEngine
 
 # global variables
 w = 660
-h = 490
+h = 690  # original height is 490
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREY = (142, 142, 142)
@@ -105,6 +105,11 @@ def draw_text(screen, font, turn, colour, check, playing, promotion, auto_flip):
     font.render_to(screen, (465, 260), f'promote: {chr(promote_dict[promotion])}', counter_colour)
     if check:
         font.render_to(screen, (465, 300), ('CHECK' if playing else 'CHECKMATE'), counter_colour if playing else RED)
+
+
+def draw_stockfish(screen, font):
+    pg.draw.rect(screen, BLACK, (50, 500, 550, 180), width=1)
+    font.render_to(screen, (50, 550),  'Some filler test')
 
 
 def draw_legal_moves(screen, colour, moves, board, flipped):
@@ -232,7 +237,6 @@ def checkmate(board, turn, kings):
     return True
 
 
-
 def main():
     global transcript, turn_number
     # window init
@@ -268,6 +272,7 @@ def main():
         screen.fill(GREY)
         COLOUR = SILVER if turn == 'white' else BLACK
         draw_squares(screen)
+        draw_stockfish(screen, font)
         if target_square:
             pg.draw.rect(screen, COLOUR, ((40 + (true_target[0] * 50)), 40 + (true_target[1] * 50), 50, 50), width=2)
         draw_coords(screen, font, board_flipped)

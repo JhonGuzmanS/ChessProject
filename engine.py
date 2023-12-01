@@ -52,6 +52,10 @@ class FishEngine:
             board.push_san(move)
         self.fen = board.fen()
 
+    def evaluate(self):
+        stockfish.set_fen_position(self.fen)
+        eval = stockfish.get_evaluation()
+
 
 #
 df_moves = df["moves"]
