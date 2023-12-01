@@ -4,6 +4,7 @@ import pygame as pg
 from pygame import freetype
 import pieces
 import sys
+from engine import FishEngine
 
 # global variables
 w = 660
