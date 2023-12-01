@@ -22,6 +22,10 @@ main.py: main execution file
 pieces.py: class file for the pieces
 
 # notes:
+Special credit to: 
+(Note: As of 11/15/23, currently have yet to find the initial creator for the chessboard created using pygame)
+
+## Below are notes given from creator "_____"
 Functioning as of 23/01/21 but not fully bug tested/more features coming. Please send any feedback: basileagle@gmail.com
 
 24/01/21: Fixed a MAJOR bug with 2 words. Line 30 of pieces.py should have read "COORDS not IN legal_moves", not "not legal_moves". Corrected in newest upload.
