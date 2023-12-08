@@ -1,6 +1,13 @@
 # chess
 Local chess game with full ruleset, made in Pygame.
 
+# stockfish
+Within the python file "engine.py", Stockfish must be downloaded from their website [Stockfish](https://stockfishchess.org/download/)
+
+For window users go [here](https://stockfishchess.org/download/windows/) and download the 64-bit
+
+Any additional information on using stockfish in python: [stockfish py](https://pypi.org/project/stockfish/)
+
 # controls:
 SPACE: flip board
 
