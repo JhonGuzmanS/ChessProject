@@ -3,11 +3,15 @@ import pandas as pd
 import numpy as np
 import chess
 import chess.svg
+import chess.pgn
+from stockfish import Stockfish
+
 import random
 from PIL import Image
 from io import BytesIO
 
 st.title('Chess Upsets')
+engine = chess.engine.SimpleEngine.popen_uci(r"C:/Users/Jhon/stockfish/stockfish-windows-x86-64-avx2")
 
 RAW_DATA_URL = 'games.csv'
 UPSET_DATA = 'upset_dataset.csv'
@@ -57,6 +61,7 @@ st.write(players_upset)
 
 st.subheader("Search a match!")
 user_input = st.text_input("Enter in a number ranging from 0 - 545 or a player_id:")
+match_subdf = None
 if user_input:
     st.subheader('Match Information')
 
@@ -65,17 +70,21 @@ if user_input:
         st.text(f"Let's see match {user_input}!")
         st.write(match_history)
         st.write(match_history["moves"])
+        match_subdf = match_history
 
     except:
         st.text(f"Let's see '{user_input}' match history!")
         result = upset_data.query(f'((white_id == "{user_input}") or (black_id == "{user_input}"))')
         st.write(result)
         st.write(result["moves"])
+        match_subdf = result
+
 
 # streamlit does not process the chess board visualization, code below is irrelavent
 def show_board():
-
     print(board)
+
+
 def play_chess_game(moves):
     board = chess.Board()
     images = []
@@ -88,12 +97,32 @@ def play_chess_game(moves):
             svg_board = chess.svg.board(board=board)
             print(svg_board)
             # Append the image to the list
-            #images.append(image)
+            # images.append(image)
         except ValueError:
             st.error(f"Invalid move: {move}")
             break
 
     return images
 
+
+# start of new section
 board = chess.Board()
-st.write(board)
+board_before = chess.Board()
+
+test_moves = match_subdf.iloc[0, 9]
+st.write(test_moves)
+test_moves = test_moves.split()
+for move in test_moves:
+    board.push_san(move)
+    info = engine.analyse(board, chess.engine.Limit(time=1))
+    lower_rank_score = info['score'].pov(chess.BLACK)
+    lower_rank_score = str(lower_rank_score)
+    lower_rank_score = lower_rank_score.replace("Cp", "")
+    if int(lower_rank_score) > 100:
+        st.write(lower_rank_score)
+        print("Black's Likelihood of winning shifting from White's blunder", lower_rank_score)
+        break
+    else:
+        board_before.push_san(move)
+        info_before = engine.analyse(board_before, chess.engine.Limit(time=1))
+        lower_rank_score_before = info_before['score'].pov(chess.BLACK)
