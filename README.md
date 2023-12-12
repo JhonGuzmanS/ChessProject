@@ -28,7 +28,6 @@ main.py: main execution file
 
 pieces.py: class file for the pieces
 
-# notes:
-Special credit to [EnemigoPython](https://github.com/EnemigoPython): 
+# Special credit to [EnemigoPython](https://github.com/EnemigoPython): 
 
 ## His code from (Github)[https://github.com/EnemigoPython/chess] was used to create the chessboard
