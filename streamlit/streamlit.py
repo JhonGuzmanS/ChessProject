@@ -6,12 +6,13 @@ import chess.svg
 import chess.pgn
 from stockfish import Stockfish
 
+
 import random
 from PIL import Image
 from io import BytesIO
 
 st.title('Chess Upsets')
-engine = chess.engine.SimpleEngine.popen_uci(r"C:/Users/Jhon/stockfish/stockfish-windows-x86-64-avx2")
+engine = chess.engine.SimpleEngine.popen_uci(r"C:/Users/Jhon/stockfish/stockfish-windows-x86-64")
 
 RAW_DATA_URL = 'games.csv'
 UPSET_DATA = 'upset_dataset.csv'
@@ -126,3 +127,5 @@ for move in test_moves:
         board_before.push_san(move)
         info_before = engine.analyse(board_before, chess.engine.Limit(time=1))
         lower_rank_score_before = info_before['score'].pov(chess.BLACK)
+
+
